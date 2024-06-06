@@ -32,6 +32,7 @@ entero              {digito}+
 %option yylineno
 /*condicion contexto comentarios multilinea*/
 %x comentario 
+/*%option debug*/
 
 %%
 
@@ -57,8 +58,8 @@ entero              {digito}+
 
  /*identificadores*/
 
-({letra}|_)({letra}|_|{digito})*    {if(yyleng<ID_MAX_LEN)return ID;
-                                    else error_lexico("length exceeded",yylineno); num_errores++; return ID;} /*se devuelve ID para no hacer daño al sintactico*/
+({letra}|_)({letra}|_|{digito})*    {if(yyleng<ID_MAX_LEN){return ID;}
+                                    else {error_lexico("length exceeded",yylineno); num_errores++; return ID;}} /*se devuelve ID para no hacer daño al sintactico*/
 
  /*constantes*/
 
@@ -83,7 +84,7 @@ entero              {digito}+
 
 
  /*tratamiento de errores*/
-.                                   error_lexico("unrecognised character",yylineno); num_errores++;
+[^ \n\r\ta-zA-Z$_0-9+*/\-=;(){},"]+   error_lexico("unrecognised character",yylineno); num_errores++;
 %%
 
  /*seccion de funciones auxiliares*/
@@ -91,14 +92,4 @@ entero              {digito}+
 void error_lexico(char* a, int line)
 {
   printf("[Error] %s line : %d [%s]\n", yytext, line, a);
-}
-
-void main() {
-    int i;
-    while (i=yylex())
-        printf("Token : <%d , %s>\n", i, yytext);
-    if(num_errores>0){
-      printf("[Error_Count] se han producido %d errores\n",num_errores);
-    }
-    printf("FIN DE ANALISIS LEXICO\n");
 }

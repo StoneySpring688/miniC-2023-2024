@@ -1,0 +1,14 @@
+// Ejemplo de prueba
+main() {
+    123;
+    1214857123085731268732570312570347830726; //esto produce un error
+    %&#     x = 5 +2;
+    y = 2 - 1;
+    /*hola muy buenas
+    tardes
+    esto    es un\t comentario*/
+    print("HoLa En, un lugar de la \"Mancha\" de \n cuyo nombre" x,y, 2*5/x-1);
+    
+    /*esto es otro comentario /  //esto produce un error
+    
+}
