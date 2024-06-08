@@ -2,7 +2,7 @@
 
 /*librerias y archivos*/
 
-#include "lex.h"
+#include "minC.tab.h"
 #include <stdio.h>
 
 /*constantes*/
@@ -26,6 +26,7 @@ void error_lexico();
 digito              [0-9]
 letra               [a-zA-Z]
 entero              {digito}+
+numeroNoApto        {entero}([,.]{entero})*
 
 /*opciones de flex*/
 
@@ -47,26 +48,61 @@ entero              {digito}+
 
  /*palabras reservadas*/
 
-"main"                              return MAIN;
+ /*"main"                              return MAIN;*/
 "print"															return PRINT;
 "var"                               return VAR;
 "const"                             return CONST;
 "if"                                return IF;
 "else"                              return ELSE;
+"do"                                return DO;
 "while"                             return WHILE;
 "read"                              return READ;
 
  /*identificadores*/
 
-({letra}|_)({letra}|_|{digito})*    {if(yyleng<ID_MAX_LEN){return ID;}
-                                    else {error_lexico("length exceeded",yylineno); num_errores++; return ID;}} /*se devuelve ID para no hacer daño al sintactico*/
+\"([^"\n]|\\\\|\\\")*\"             {
+                                      yylval.str = strdup(yytext);
+                                      return STR;
+                                    }
+\"([^"\n]|\\\\|\\\")*               {
+                                      error_lexico("comentario sin cerrar",yylineno);
+                                      num_errores++;
+                                      return STR;
+                                    }  
+
+({letra}|_)({letra}|{digito}|_)*    {
+                                      if(yyleng<ID_MAX_LEN){
+                                        yylval.str = strdup(yytext);
+                                        return ID;
+                                      }
+                                      else {
+                                        error_lexico("length exceeded",yylineno);
+                                        num_errores++;
+                                        yylval.str = strdup(yytext);
+                                        return ID;
+                                      }
+                                    } /*se devuelve ID para no hacer daño al sintactico*/
 
  /*constantes*/
 
-{entero}                            {if(atol(yytext) < MAX_INT_TAM)return NUM;
-                                    else error_lexico("int length exceeded",yylineno); num_errores++; return NUM;}
-\"([^"\n]|\\\\|\\\")*\"             return CADENA;
-\"([^"\n]|\\\\|\\\")*               error_lexico("comentario sin cerrar",yylineno); num_errores++;
+{entero}                            {
+                                      if(atol(yytext) < MAX_INT_TAM){
+                                        yylval.str = strdup(yytext);
+                                        return NUM;
+                                      }
+                                      else{
+                                        error_lexico("int length exceeded",yylineno);
+                                        yylval.str = strdup(yytext);
+                                        num_errores++;
+                                        return NUM;
+                                      }   
+                                    }
+{numeroNoApto}                      {
+                                      yylval.str = strdup(yytext);
+                                      error_lexico("numero no valido",yylineno);
+                                      num_errores++;
+                                      return NUM;
+                                    }
 
  /*caracteres especiales*/
 

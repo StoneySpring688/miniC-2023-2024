@@ -1,0 +1,7 @@
+prueba() {
+    var c=3;
+    const a=0, b=0;
+    if (a) print ("a","\n");
+    else if (b) print ("No a y b\n");
+    print ("Fin del programa\n");
+}

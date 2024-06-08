@@ -1,0 +1,26 @@
+prueba() {
+    
+    var z = 238472384723498;
+    const a = 1;
+    var b = 3;
+    var j = 4.4;
+    var c=4;
+    var c = 2;
+    a = 3;
+
+    /* bucle do while 
+    restando c */
+
+    do {
+        print("c\n");
+        c=c-1;
+    } while(c);
+
+    do {
+        print("Hola");
+    };
+
+    // fin del programa
+    print("Fin\n");
+
+}

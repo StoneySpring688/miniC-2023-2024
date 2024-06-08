@@ -1,0 +1,13 @@
+prueba3(){
+	const a= 1;
+	const b= a * 6 / 3;
+	var c;
+	var d= 5 + 2 * ( b - a );
+	
+	while (a) {
+		print ("hola\n") ;
+	}
+	
+	print("Inicio del programa\n");
+
+}

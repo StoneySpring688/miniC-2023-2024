@@ -1,0 +1,16 @@
+prueba() {
+
+    const a = 1;
+    var c=4;
+
+    /* bucle do while 
+    restando c */
+
+    do {
+        print("c\n");
+        c=c-1;
+    } while(c);
+
+    // fin del programa
+    print("Fin\n");
+}
