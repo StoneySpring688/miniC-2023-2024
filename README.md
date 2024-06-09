@@ -11,7 +11,7 @@ Este proyecto consiste en una implementación de un compilador que traduce desde
 
 ### constantes(const) :
   const c = something , d = something , ... ;
-  -types:
+  - types:
     - cadena
     - entero
 
