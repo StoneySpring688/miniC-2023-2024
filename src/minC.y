@@ -293,7 +293,6 @@ print_list	:	print_item {
 			|	print_list "," print_item {
 											$$ = $1;
 											concatenaLC($$,$3);
-											//algo
 			}
 			;
 
@@ -503,8 +502,7 @@ int pertTs(char *nombre){
 }
 
 void insertTsID(char *a){
-	PosicionLista posic = buscaLS(TS,a);
-	if(posic == finalLS(TS)){
+	if(!pertTs(a)){
 		Simbolo aux;
 		aux.nombre = a;
 		aux.tipo = tipo;
@@ -523,8 +521,7 @@ int isConst(char *a){
 }
 
 void buscID(char* a, int v){
-    PosicionLista posic = buscaLS(TS,a);
-  if (posic != finalLS(TS)) {
+  if (pertTs(a)) {
 	if(v){
 		if(isConst(a)){
 			printf("[Error] %s línea : %d [identificador constante, no permite redefinicion]\n",a,yylineno);
@@ -580,7 +577,7 @@ char *dReg(){
 	for(int i=0;i<10;i++){
 		if(regTemp[i] == 0){
 			regTemp[i] = 1;
-			//char *reg = (char *)malloc(5*sizeof(char)); //"$" + "t" + i + '\0'
+			//char *reg = (char *)malloc(5*sizeof(char)); //"$" + "t" + i + '\0' provocaba conflictos en memoria por no manejarse bien
 			if(reg == NULL){
 				printf("[Error] no se pudo asignar registro $t%d\n",i);
 				exit(1);
@@ -591,22 +588,11 @@ char *dReg(){
 	}
 	printf("[Error] se agotaron los registros\n");
 	exit(1);
-	/*char aux[32];
-  	for(int i = 0; i < 10; i++) {
-    	if(regTemp[i] == 0) {
-        	regTemp[i] = 1;
-        	sprintf(aux,"$t%d",i);
-        	return strdup(aux);
-	    }
-  	}*/
 }
 
 void lReg(char *reg){
-	/*int i=atoi(&(reg[2])); //avanza a la tercera posic
+	int i=atoi(&(reg[2])); //avanza a la tercera posic
 	regTemp[i] = 0;
-	free(reg);*/
-	int i = reg[2] - '0';
-    regTemp[i] = 0;
 }
 
 char* etiq(){
@@ -617,10 +603,6 @@ char* etiq(){
 }
 
 char* concat(char* a, char* b){
-	/*char* cad = malloc(strlen(a)+strlen(b)+1);
-	strcpy(cad, a);
-	strcpy(cad, b);
-	return cad;*/
 
 	int lA = strlen(a);
 	int lB = strlen(b);
