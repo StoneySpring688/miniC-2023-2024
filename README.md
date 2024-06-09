@@ -3,23 +3,45 @@
 Este proyecto consiste en una implementación de un compilador que traduce desde el lenguaje fuente denominado miniC al lenguaje ensamblador de MIPS
 
 ## Funcionalidad :
-### variables:
-- cadena
-- entero
-- 
-### constantes:
--cadena
--entero
+### variables(var) :
+  var a = something , b = something , ... ;
+  - types:
+    - cadena
+    - entero
 
-### If
+### constantes(const) :
+  const c = something , d = something , ... ;
+  -types:
+    - cadena
+    - entero
 
-### If else
+### If :
+  if (something){
+  
+  }
 
-### While
+### If else :
+  if (something){
+  
+  }else{
+  
+  }
 
-### Print
+### While :
+  while (something){
+  
+  }
 
-### Read
+### do while :
+  do{
+
+  }while(something);
+
+### Print :
+  print ("something",x,...);
+
+### Read :
+  read (a,b,...);
 
 ## Autores
 
