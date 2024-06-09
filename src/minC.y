@@ -494,6 +494,7 @@ expression	:	expression "+" expression {
 
 void yyerror(const char* msg) {
 	printf("[Error] linea : %d [%s]\n", yylineno, msg);
+	num_errores++;
 }
 
 int pertTs(char *nombre){

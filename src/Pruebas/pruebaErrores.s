@@ -4,4 +4,4 @@
 [Error] a línea : 9 [identificador constante, no permite redefinicion]
 [Error] linea : 21 [syntax error, unexpected ;, expecting while]
 #########################
-[Error_Count] se han producido 4 errores
+[Error_Count] se han producido 5 errores
